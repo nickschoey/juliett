@@ -1,25 +1,40 @@
 const db = require ('../db')
 
-async function viewAccounts (req, res) {
-  let msg = await db.viewAccounts()
-  res.status = 200
-  res.send(msg)
+const viewItems = async (ctx, next) => {
+  ctx.body = await db.viewItems()
+  next()
 }
 
-async function viewReceipt (req, res) {
-  let msg = await db.viewReceipt(req.body)
-  res.status = 200
-  res.send(msg)
+const viewItem = async (ctx, next) => {
+  ctx.body = await db.viewItem(ctx.params.name)
+  next()
 }
 
-function addReceipt (req, res) {
-    db.addReceipt(req.body)
-    res.status= 200
-    res.send('Receipt added')
+const addItem = async (ctx, next) => {
+  ctx.body = ctx.request.body
+  await db.addItem(ctx.body)
+  next()
 }
+
+const deleteItem = async (ctx, next) => {
+  ctx.body = await db.deleteItem(ctx.params.name)
+  next()
+}
+
+/*
+
+const editItem = async (ctx, next) => {
+  ctx.body = ctx.request.body
+  db.editItem(ctx.body)
+  res.send('edited to your liking')
+
+}
+*/
 
 //     EXPORTS =================================================================
 
-exports.addReceipt = addReceipt
-exports.viewAccounts = viewAccounts
-exports.viewReceipt = viewReceipt
+exports.addItem = addItem
+exports.deleteItem = deleteItem
+exports.viewItems = viewItems
+exports.viewItem = viewItem
+// exports.editItem = editItem

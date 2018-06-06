@@ -1,40 +1,31 @@
 const db = require ('../db')
 
-async function viewItems (req, res) {
-  let msg = await db.viewItems()
+async function viewAccounts (req, res) {
+  let msg = await db.viewAccounts()
   res.status = 200
   res.send(msg)
 }
 
-async function viewItem (req, res) {
-  let msg = await db.viewItem(req.body)
+async function viewReceipt (req, res) {
+  let msg = await db.viewReceipt(req.body)
   res.status = 200
   res.send(msg)
 }
 
-function addItem (req, res) {
-    db.addItem(req.body)
+function addReceipt (req, res) {
+    db.addReceipt(req.body)
     res.status= 200
-    res.send('Item added')
+    res.send('Receipt added')
 }
 
-function deleteItem(req, res) {
+function deleteReceipt(req, res) {
   console.log('about to delete')
   db.deleteItem(req.params.id)
   res.send('Deleted')
-
-}
-
-function editItem(req, res) {
-  db.editItem(req)
-  res.send('edited')
-
 }
 
 //     EXPORTS =================================================================
 
-exports.addItem = addItem
-exports.deleteItem = deleteItem
-exports.viewItems = viewItems
-exports.viewItem = viewItem
-exports.editItem = editItem
+exports.addReceipt = addReceipt
+exports.viewAccounts = viewAccounts
+exports.viewReceipt = viewReceipt

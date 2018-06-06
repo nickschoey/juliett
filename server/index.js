@@ -1,14 +1,17 @@
 const Koa = require ('koa')
 const cors = require ('koa-cors')
-const app = module.exports = new Koa()
+const app = new Koa()
 const bodyparser = require('koa-bodyparser')
-const router = require ('./routes.js')
+const router = require ('./router.js')
 const db = require('./db.js')
-
+const port = 3000;
 
 
 app
-  .listen(3000, () => console.log('App listening on port 3000!'))
-  .on('error', (err, ctx) => {
-  console.error('server error', err, ctx)
-  })
+  .use(bodyparser())
+  .use(router.routes())
+  .use(router.allowedMethods())
+
+  .listen(port, function(){
+    console.log(`Server running on ------- LOCALHOST:${port}`)
+  });
