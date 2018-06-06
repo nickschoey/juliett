@@ -14,8 +14,8 @@ router
   .get('/view-all', item.viewItems)
   .post('/add-item', item.addItem)
   .delete('/delete/:name', item.deleteItem)
-  .put('/topics/:name'), controller.editItem)
-  
+  .put('/topics/:name'), controller.editItem
+
   // //-------------accounting
   // .get('/view-receipt', accounting.viewReceipt)
   // .get('/view-accounts', accounting.viewAccounts)
