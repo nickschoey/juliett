@@ -14,13 +14,13 @@ router
   .get('/view-all', item.viewItems)
   .post('/add-item', item.addItem)
   .delete('/delete/:name', item.deleteItem)
-  .put('/topics/:name'), controller.editItem
+  //.put('/topics/:name'), controller.editItem
 
-  // //-------------accounting
-  // .get('/view-receipt', accounting.viewReceipt)
-  // .get('/view-accounts', accounting.viewAccounts)
-  // .post('/add-receipt', accounting.addReceipt)
-  // .delete('/delete-receipt', accounting.deleteReceipt)
+  //-------------accounting
+  .get('/view-receipt/:item', accounting.viewReceipt)
+  .get('/view-receipts', accounting.viewReceipts)
+  .post('/add-receipt', accounting.addReceipt)
+  .delete('/delete-receipt/:item', accounting.deleteReceipt)
 
 
 module.exports = router

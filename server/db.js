@@ -6,7 +6,7 @@ const Receipt = require('./models/model-receipt')
 
 //   ITEM ENDPOINTS ================
 
-function addItem(item) {
+const addItem = (item) => {
   Item.create(item)
     .then(res => console.log("successfully added item"))
     .catch(err => console.error(err))
@@ -14,8 +14,9 @@ function addItem(item) {
 
 
 const deleteItem = async (item) => {
-  let data = await Item.findOneAndDelete({name: item})
-  return data
+  let data = await  Item.findOneAndDelete({name: item})
+    console.log("successfully deleted item")
+    return data
 }
 
 const viewItem = async (item) => {
@@ -38,26 +39,28 @@ const editItem = async (item) => {
 
 //   ACCOUNTING ENDPOINTS ================
 
-function addReceipt(receipt) {
-  console.log(receipt)
+const addReceipt = (receipt) => {
   Receipt.create(receipt)
-    .then(res => console.log("successfully added receipt"))
+    .then(res => console.log("successfully receipted item"))
     .catch(err => console.error(err))
 }
 
-function viewReceipt(receipt) {
+
+const deleteReceipt = async (receipt) => {
+  let data = await Receipt.findOneAndDelete({item: receipt})
+  console.log("successfully deleted receipt")
+  return data
 
 }
 
-function viewAccounts() {
-
+const viewReceipt = async (receipt) => {
+  let data = await Receipt.findOne({item: receipt})
+  return data
 }
 
-function deleteReceipt(receipt) {
-  model.findByIdAndDelete(receipt.id)
-    // .then(res => res.send(200))
-    .then(console.log(`Receipt deleted successfully`))
-    .catch((err) => console.error(err))
+const viewReceipts = async () => {
+  let data = await Receipt.find()
+  return data
 }
 
 
@@ -79,5 +82,5 @@ exports.viewItems = viewItems
 exports.viewItem = viewItem
 exports.addReceipt = addReceipt
 exports.viewReceipt = viewReceipt
-exports.viewAccounts = viewAccounts
+exports.viewReceipts = viewReceipts
 exports.deleteReceipt = deleteReceipt

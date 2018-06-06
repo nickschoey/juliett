@@ -3,44 +3,46 @@ Juliett is an open-source cryptocurrency POS system for small merchants
 
 
 
-### Client
+## Client
 
-### Server
+## Server
 
 
-#### Models
+### Models
 
-##### Item Model
+#### Item Model
 
-##### Receipt Model
+#### Receipt Model
 
-#### Database
+### Database
 API end-points for the MongoDB database. Mongoose is used as an ORM.
 
-##### Item Model
+#### Item Model
 
 *addItem(item):* Adds individual items to the list of goods sold. *(name, ingredients, price)*
 
 
 **Notes & Conventions:**
 <ul>
-  <li> * all items are added in lower-case. </li>
-  <li> * no spacing is used in names of items. </li>
+  <li> all items are added in lower-case. </li>
+  <li> no spacing is used in names of items. </li>
 </ul>
 
 ~~editItem(item):~~ *just fucking delete and add again for now.*
+
 *deleteItem(item):* Deletes an item by name.
+
 *viewItem(item):* Displays an individual good that's sold.
 
 **Notes & Conventions:**
 <ul>
-  <li> * items are found by name. </li>
+  <li> items are found by name. </li>
 
 </ul>
 
 *viewItems:* Displays all goods sold
 
-##### Receipt Model
+#### Receipt Model
 
 *addReceipt(receipt):*
 *viewReceipt(receipt):*
@@ -50,6 +52,6 @@ API end-points for the MongoDB database. Mongoose is used as an ORM.
 
 
 
-#### Index.js
+### Index.js
 
-#### Router
+### Router

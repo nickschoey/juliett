@@ -1,14 +1,15 @@
 const mongoose = require('mongoose')
 
 const Receipt = new mongoose.Schema({
-  item: Object,
+  item: String,
   fiatUsed: String,
   cryptocurrencyUsed: String,
   priceFiat: Number,
   priceCryptocurrency: Number,
   exchangeRate: Number,
   TimeStamp: Date,
-  block: String,
+  block: Number,
+  hash: String
 })
 
 
