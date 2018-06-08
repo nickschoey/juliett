@@ -1,6 +1,7 @@
 'use strict';
 
 const item = require ('./controllers/controllers-item.js');
+const misc = require ('./controllers/controllers-misc.js');
 const accounting = require ('./controllers/controllers-accounting.js');
 const Router = require('koa-router')
 const router = new Router();
@@ -21,6 +22,9 @@ router
   .get('/view-receipts', accounting.viewReceipts)
   .post('/add-receipt', accounting.addReceipt)
   .delete('/delete-receipt/:item', accounting.deleteReceipt)
+
+  //-------------webhooks
+  .post('/', misc.newTX)
 
 
 module.exports = router

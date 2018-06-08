@@ -1,4 +1,5 @@
 const db = require ('../db')
+const outsideapis = ('../external-apis')
 
 const viewReceipts = async (ctx, next) => {
   ctx.body = await db.viewReceipts()
