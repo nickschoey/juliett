@@ -26,3 +26,37 @@
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }
 }
+
+.items {
+  display: flex;
+  flex-wrap: wrap;
+
+}
+
+.item{
+  width: 30rem;
+  padding: 10px
+}
+
+.Card{
+  width: 30%;
+  display: inline;
+}
+
+.image {
+  height: 25vw;
+  overflow: hidden;
+}
+
+.image img {
+  max-width: 100%;
+  min-height: 100%;
+}
+
+
+.navbar {
+  display: flex;
+  min-width: 100%;
+  /* padding: 0px; */
+  /* margin: 0px; */
+}

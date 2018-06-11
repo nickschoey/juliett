@@ -1,6 +1,10 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
 import './App.css';
+import ItemList from './items-list'
+import Navigation from './navbar'
+import Accounts from './accounts'
+import { BrowserRouter as Router, Link, Route } from 'react-router-dom'
+import AddItem from './add-item'
 
 class App extends Component {
 
@@ -13,13 +17,21 @@ class App extends Component {
 
   render() {
     return (
+    <Router>
       <div className="App">
-        <div className="navigation">
-
+        <div className="nav">
+          <Navigation/>
         </div>
-        <div className="logo"></div>
-        <div className="cards"></div>
+        <div className="body">
+          <Route path="/home"
+          render={() => (<ItemList baseUrl={this.state.baseURL}/>)}/>
+          <Route path="/accounts"
+          render={() => (<Accounts baseUrl={this.state.baseURL}/>)}/>
+          <Route path="/add-item"
+          render={() => (<AddItem baseUrl={this.state.baseURL}/>)}/>
       </div>
+    </div>
+    </Router>
     );
   }
 }
