@@ -34,9 +34,26 @@
 
 }
 
+.ind-tx {
+  padding: 20px;
+}
+
+.transaction-header {
+  padding: 150px;
+  padding-bottom: 100px;
+}
+
+img.pizza{
+  margin: 50px;
+}
+
 .item{
   width: 25rem;
   padding: 10px
+}
+
+.purchaseBtn {
+  padding-top: 10px;
 }
 
 .Card{

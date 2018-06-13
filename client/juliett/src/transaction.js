@@ -1,5 +1,6 @@
 import React from 'react'
 import { Table } from 'reactstrap'
+import pizza from './assets/pizza.jpeg'
 
 
 export default class Transaction extends React.Component {
@@ -17,26 +18,20 @@ export default class Transaction extends React.Component {
     let ether = this.props.el.value/Math.pow(10,18)
     console.log(this.props.el)
     return (
-      <Table>
+    <div className="ind-tx">
+      <Table size="sm" borderless>
         <tbody>
           <tc>
-            <td>Transaction Hash</td>
-            <td>Block Number</td>
-            <td>Amount</td>
-            <td># of Confirmations Passed</td>
-            <td>Date</td>
-            <td>Hash</td>
-          </tc>
-          <tc>
-            <td>{this.props.el.tx_hash}</td>
-            <td>{this.props.el.block_height}</td>
-            <td>{ether}</td>
-            <td>{this.props.el.confirmations}</td>
-            <td>{date}</td>
-            <td>{this.props.el.hash}</td>
+            <tr><th>Transaction Hash: </th><td>{this.props.el.tx_hash}</td></tr>
+            <tr><th>Block Number: </th><td>{this.props.el.block_height}</td></tr>
+            <tr><th>Amount: </th><td>{ether}</td></tr>
+            <tr><th># of Confirmations Passed: </th><td>{this.props.el.confirmations}</td></tr>
+            <tr><th>Date: </th><td>{date}</td></tr>
           </tc>
         </tbody>
       </Table>
+      <img src={pizza} alt='divider' height='50px' class='pizza'/>
+    </div>
     )
   }
 

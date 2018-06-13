@@ -13,7 +13,8 @@ export default class Account extends React.Component{
     let date = this.props.el.date.toString().slice(0, 10)
     let time = this.props.el.date.toString().slice(11, 19)
     let ether = this.props.el.pricePaid/Math.pow(10,18)
-    let rate = this.props.el.exchangeRate/Math.pow(10,18)
+    let rate = (this.props.el.exchangeRate/Math.pow(10,18)).toFixed(7)
+    let hash = this.props.el.hash.substr(0,5)+'.... '+this.props.el.hash.substr(-3)
 
     return (
 
@@ -27,7 +28,7 @@ export default class Account extends React.Component{
           <td>{ether}</td>
           <td>{rate}</td>
           <td>{this.props.el.block}</td>
-          <td>{this.props.el.hash}</td>
+          <td>{hash}</td>
         </tr>
 
     )

@@ -14,7 +14,6 @@ export default class Accounts extends React.Component{
     fetch(this.props.baseUrl+'/view-receipts')
     .then(res => res.json())
     .then(res => this.setState({receipts: res}))
-    .then(res => console.log(res))
     .catch(err => console.error())
   }
 
@@ -25,15 +24,15 @@ export default class Accounts extends React.Component{
 
     render() {
     return (
-      <Table dark>
+      <Table dark striped>
         <thead>
           <tr>
             <th>Date</th>
             <th>Time</th>
             <th>Name</th>
-            <th>Price in Euro</th>
-            <th>Price in Ether</th>
-            <th>Exchange Rate</th>
+            <th>Price in Euro <i>( € )</i></th>
+            <th>Price in Ether <i>( Ξ )</i></th>
+            <th>Exchange Rate <i>( €/Ξ )</i></th>
             <th>Block</th>
             <th>tx hash</th>
           </tr>

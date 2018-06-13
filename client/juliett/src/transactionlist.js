@@ -1,6 +1,7 @@
 import React from 'react'
 import { Table } from 'reactstrap'
 import Transaction from './transaction'
+import arrow from './assets/arrow.png'
 
 export default class TransactionList extends React.Component{
   constructor(props) {
@@ -25,8 +26,6 @@ export default class TransactionList extends React.Component{
   }
 
     render() {
-      console.log(this.state.txs);
-      console.log(this.state.bool);
       let received = "Ξ " + (this.state.txs.total_received / Math.pow (10,18)).toString()
       let sent = "Ξ " + (this.state.txs.total_sent / Math.pow (10,18)).toString()
       let balance = "Ξ " + (this.state.txs.balance / Math.pow (10,18)).toString()
@@ -34,34 +33,37 @@ export default class TransactionList extends React.Component{
       let unconfirmed_balance = "Ξ " + (this.state.txs.unconfirmed_balance / Math.pow (10,18)).toString()
 
     return (
-    <div className="body">
-      <Table >
-            <tc>
-              <tr><th>Address: </th></tr>
-              <tr><th>Total Received: </th></tr>
-              <tr><th>Total Sent: </th></tr>
-              <tr><th>Confirmed Balance: </th></tr>
-              <tr><th>Unconfirmed Balance: </th></tr>
-              <tr><th>Final Balance: </th></tr>
-              <tr><th>Number of Transactions: </th></tr>
-            </tc>
-            <tc>
-              <tr><th>{this.state.txs.address}</th></tr>
-              <tr><th>{received}</th></tr>
-              <tr><th>{sent}</th></tr>
-              <tr><th>{balance}</th></tr>
-              <tr><th>{unconfirmed_balance}</th></tr>
-              <tr><th>{final_balance}</th></tr>
-              <tr><th>{this.state.txs.n_tx}</th></tr>
-            </tc>
-      </Table>
-        {this.state.bool
-          ? this.state.txs.txrefs.map((el) => {
-            <Transaction el={el} />
-          })
-          : <h4>null</h4>
-        }
-    </div>
+    <div className="transaction-body">
+      <div className="transaction-header">
+        <Table className='address-info' >
+          <tc>
+            <tr><th>Address: </th></tr>
+            <tr><th>Total Received: </th></tr>
+            <tr><th>Total Sent: </th></tr>
+            <tr><th>Confirmed Balance: </th></tr>
+            <tr><th>Unconfirmed Balance: </th></tr>
+            <tr><th>Final Balance: </th></tr>
+            <tr><th>Number of Transactions: </th></tr>
+          </tc>
+          <tc>
+            <tr><th>{this.state.txs.address}</th></tr>
+            <tr><th>{received}</th></tr>
+            <tr><th>{sent}</th></tr>
+            <tr><th>{balance}</th></tr>
+            <tr><th>{unconfirmed_balance}</th></tr>
+            <tr><th>{final_balance}</th></tr>
+            <tr><th>{this.state.txs.n_tx}</th></tr>
+          </tc>
+        </Table>
+      </div>
+      <img alt='arrow' height='100px' src={arrow}/>
+        <div className="transaction">
+          {this.state.bool
+            ? this.state.txs.txrefs.map((el) => <Transaction el={el} />)
+            : <h4>null</h4>
+          }
+        </div>
+      </div>
     );
   }
 }

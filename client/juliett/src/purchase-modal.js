@@ -37,7 +37,7 @@ export default class PurchaseModal extends React.Component {
       })
     })
     .then(() => this.setState({
-      purchased: false,
+      purchase: false,
       tx: {},
       rate: 0
     }))
@@ -70,22 +70,43 @@ export default class PurchaseModal extends React.Component {
           })
         }
       })
+      .then(() => console.log(hashes))
 
     return fetch(this.props.baseUrl+'/checklast')
       .then(res => res.json())
       .then(res => {
-        if ((res.value >= this.props.item._priceCryptoNumber) && (res.tx_input_n === -1) && !(hashes.includes(res.tx_hash))) {
-          console.log(res)
-          this.setState({
-            purchase: true,
-            tx: res
-          })
-      } else {
-        this.setState({
-          purchase: false
-      })
-    }})
-    }
+        res.some(el => {
+          if (((this.props.item._priceCryptoNumber * 1.05) >= el.value && el.value >= (this.props.item._priceCryptoNumber* 0.95))
+            && (el.tx_input_n === -1)
+            && !(hashes.includes(el.tx_hash))
+          ) {
+            console.log('working thus far')
+            this.setState({
+              purchase: true,
+              tx: el
+            })
+            return true
+          } else {
+            this.setState({
+              purchase: false,
+              tx: {}
+            })
+          }
+        })
+
+    //     if ((res.value >= this.props.item._priceCryptoNumber) && (res.tx_input_n === -1) && !(hashes.includes(res.tx_hash))) {
+    //       console.log(res)
+    //       this.setState({
+    //         purchase: true,
+    //         tx: res
+    //       })
+    //   } else {
+    //     this.setState({
+    //       purchase: false
+    //   })
+    // }
+    })
+  }
 
     finish = () => {
       if (this.state.purchase === true) {

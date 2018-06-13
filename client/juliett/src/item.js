@@ -35,7 +35,7 @@ class Item extends React.Component {
               <div className="priceCryptocurrency">{this.props.el.priceCryptocurrency}</div>
 
             </CardSubtitle>
-            <Button outline color="primary" onClick={() => this.props.showModal(this.props.el)}>Purchase!</Button>
+            <Button padding='5px' outline color="primary" onClick={() => this.props.showModal(this.props.el)}>Purchase!</Button>
           </CardBody>
         </Card>
       </div>
