@@ -1,5 +1,5 @@
 import React from 'react'
-import { Table } from 'reactstrap'
+
 
 export default class Account extends React.Component{
   constructor(props) {
@@ -10,13 +10,22 @@ export default class Account extends React.Component{
   }
 
   render() {
+    let date = this.props.el.date.toString().slice(0, 10)
+    let time = this.props.el.date.toString().slice(11, 19)
+    let ether = this.props.el.pricePaid/Math.pow(10,18)
+    let rate = this.props.el.exchangeRate/Math.pow(10,18)
+
     return (
 
+
+
         <tr>
-          <td scope="row">{this.props.el.item}</td>
+          <td>{date}</td>
+          <td>{time}</td>
+          <td>{this.props.el.item}</td>
           <td>{this.props.el.priceFiat}</td>
-          <td>{this.props.el.priceCryptocurrency}</td>
-          <td>{this.props.el.exchangeRate}</td>
+          <td>{ether}</td>
+          <td>{rate}</td>
           <td>{this.props.el.block}</td>
           <td>{this.props.el.hash}</td>
         </tr>

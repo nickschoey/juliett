@@ -28,6 +28,8 @@ export default class Accounts extends React.Component{
       <Table dark>
         <thead>
           <tr>
+            <th>Date</th>
+            <th>Time</th>
             <th>Name</th>
             <th>Price in Euro</th>
             <th>Price in Ether</th>
@@ -40,7 +42,7 @@ export default class Accounts extends React.Component{
             {this.state.receipts.length ?
               this.state.receipts.map( (el, i) =>
               <Account el={el} i={i} />)
-              : <h4>loading...</h4>}
+              : <h4>null</h4>}
         </tbody>
       </Table>
     );

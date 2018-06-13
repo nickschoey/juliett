@@ -1,56 +1,121 @@
 import React from 'react';
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
+import giphy from './assets/giphy.gif'
+import checky from './assets/checky.gif'
+import fail from './assets/fail.gif'
+
 
 export default class PurchaseModal extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      modal: false
-      purchase: false
+      purchase: false,
+      tx: {},
+      rate: 0,
+      loadingImg: ""
     };
-
-    this.toggle = this.toggle.bind(this);
   }
 
-  toggle() {
-    this.setState({
-      modal: !this.state.modal
-    });
-  }
+  writeReceipt = () => {
+    let priceFiatNum = Number(this.props.item.priceFiat.substring(2))
+    console.log("price: ", priceFiatNum, "exchange rate: ", this.props.item.exchangeRate);
+    let price_paid =this.state.tx.value
 
-  
-
-  check() {
-    fetch(this.props.baseUrl+'/checklast')
-      .then(res => res.json())
-      .then((res) => {
-        if (res.value >=  )
+    return fetch(this.props.baseUrl+'/add-receipt', {
+      method: 'POST',
+      headers: {'content-type': 'application/json'},
+      body: JSON.stringify({
+        item: this.props.item.name,
+        fiatUsed: "Euro",
+        cryptocurrencyUsed: "Ether",
+        priceFiat: priceFiatNum,
+        pricePaid: price_paid,
+        exchangeRate: this.props.item.exchangeRate,
+        TimeStamp: new Date(),
+        block: this.state.tx.block_height,
+        hash: this.state.tx.tx_hash
       })
-      .then(res => this.setState({items: res}))
-      .then()
-      .then(res => console.log(res))
-      .catch(err => console.error())
+    })
+    .then(() => this.setState({
+      purchased: false,
+      tx: {},
+      rate: 0
+    }))
+    .then(res => console.log('item added'))
     }
 
-    this.setState({
-      modal: !this.state.modal
-    });
+
+  loading = () => {
+    this.setState({loadingImg: giphy})
+    setTimeout(() => {
+      this.setState({loadingImg: fail})
+    }, 10000)
+
   }
 
 
 
+
+  check = () => {
+
+    this.loading()
+
+    let hashes = []
+    fetch(this.props.baseUrl+'/view-receipts')
+      .then(res => res.json())
+      .then(res => {
+        if (res.length) {
+          res.forEach(el => {
+            hashes.push(el.hash)
+          })
+        }
+      })
+
+    return fetch(this.props.baseUrl+'/checklast')
+      .then(res => res.json())
+      .then(res => {
+        if ((res.value >= this.props.item._priceCryptoNumber) && (res.tx_input_n === -1) && !(hashes.includes(res.tx_hash))) {
+          console.log(res)
+          this.setState({
+            purchase: true,
+            tx: res
+          })
+      } else {
+        this.setState({
+          purchase: false
+      })
+    }})
+    }
+
+    finish = () => {
+      if (this.state.purchase === true) {
+        this.writeReceipt()
+        this.props.toggleModal()
+      } else {
+        this.props.toggleModal()
+      }
+    }
 
   render() {
     return (
       <div>
-        <Modal isOpen={this.state.modal} className="purchase_modal">
-          <ModalHeader toggle={this.toggle}>Transaction has been</ModalHeader>
-          <ModalBody>
-            We will check if we've gotten a transaction.
-          </ModalBody>
+        <Modal
+          // onClosed={() => this.props.toggleModal(this.props.item)}
+          // onExit={() => this.props.toggleModal(this.props.item)}
+          onOpened={this.check}
+          backdropTransition={{ timeout: 1300 }}
+          modalTransition={{ timeout: 700 }}
+          isOpen={this.props.modal}
+          className="purchase_modal">
+          <ModalHeader toggle={this.props.toggleModal}>transaction status...</ModalHeader>
+          {
+            this.state.purchase
+              ? <ModalBody align='center'> <img width="400px" max alt="success" src={checky} /> </ModalBody> //  ??
+              : <ModalBody align='center'> <img width="200px" alt="pending" src={this.state.loadingImg}/> </ModalBody>
+          }
           <ModalFooter>
             <Button color="primary" onClick={this.check}>Check Again</Button>{' '}
-            <Button color="success" onClick={this.toggle}>Complete</Button>
+            <Button color="success" onClick={this.finish}>Finish</Button>
           </ModalFooter>
         </Modal>
       </div>

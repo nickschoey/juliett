@@ -32,7 +32,7 @@ export default class Navigation extends React.Component {
   render() {
       return (
         <span className="navbar">
-          <Navbar color="light" light expand="md" >
+          <Navbar color="light" light expand="md" className="navigation" >
             <NavbarBrand href="/home"><b>juliett.</b></NavbarBrand>
             <NavbarToggler onClick={this.toggle} />
             <Collapse isOpen={this.state.isOpen} navbar>
@@ -52,12 +52,12 @@ export default class Navigation extends React.Component {
                       <NavLink href="/add-item">Add Item</NavLink>
                     </DropdownItem>
                     <DropdownItem>
-                      <NavLink href="/transaction-details">Recent Transaction Details</NavLink>
+                      <NavLink href="/recent-transactions">Recent Transaction Details</NavLink>
+                    </DropdownItem>
+                    <DropdownItem>
+                      <NavLink href="/pay">Payment Screen</NavLink>
                     </DropdownItem>
                     <DropdownItem divider />
-                    <DropdownItem>
-                      sign out
-                    </DropdownItem>
                   </DropdownMenu>
                 </UncontrolledDropdown>
               </Nav>

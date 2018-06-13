@@ -30,11 +30,12 @@
 .items {
   display: flex;
   flex-wrap: wrap;
+  justify-content: space-around;
 
 }
 
 .item{
-  width: 30rem;
+  width: 25rem;
   padding: 10px
 }
 
@@ -44,19 +45,42 @@
 }
 
 .image {
-  height: 25vw;
+  height: 18vw;
   overflow: hidden;
 }
 
 .image img {
-  max-width: 100%;
+  min-width: 100%;
   min-height: 100%;
 }
 
+.body{
+  justify-content: center;
+  display: flex;
+}
 
+.itemForm{
+
+  width: 50%;
+  margin: 0;
+}
 .navbar {
   display: flex;
   min-width: 100%;
   /* padding: 0px; */
   /* margin: 0px; */
+}
+
+
+.qr img{
+  justify-content: center;
+  align-self: center;
+}
+
+.qr {
+  padding: 100px;
+}
+
+purchase_modal {
+  align-items: center;
 }

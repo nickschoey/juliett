@@ -1,18 +1,19 @@
 import React from 'react'
-import { Card, CardImg, CardText, CardBody, CardTitle, CardSubtitle, Button } from 'reactstrap';
+import { Card, CardImg, CardBody, CardTitle, CardSubtitle, Button } from 'reactstrap';
+
 
 
 class Item extends React.Component {
   constructor(props) {
     super(props);
     this.state ={
-
+      modalOn: false
     }
   }
 
-  handleClick = (e) => ({
-
-  })
+  handleClick = (e) => {
+    this.setState(this.modalOn: true)
+  }
 
 
   render() {
@@ -28,18 +29,21 @@ class Item extends React.Component {
             />
           </div>
           <CardBody>
-            <CardTitle>{this.props.el.name}</CardTitle>
+            <CardTitle><b>{this.props.el.name}</b></CardTitle>
             <CardSubtitle>
-                <div className="priceFiat">{this.props.el.priceFiat}</div>
-                <div className="priceCryptocurrency">{this.props.el.priceCryptocurrency}</div>
+              <div className="priceFiat">{this.props.el.priceFiat}</div>
+              <div className="priceCryptocurrency">{this.props.el.priceCryptocurrency}</div>
 
             </CardSubtitle>
-            <Button outline color="primary" onClick="">Purchase!</Button>
+            <Button outline color="primary" onClick={() => this.props.showModal(this.props.el)}>Purchase!</Button>
           </CardBody>
         </Card>
       </div>
-    )
 
+
+
+
+    )
   }
 
 }

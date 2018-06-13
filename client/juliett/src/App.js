@@ -3,15 +3,17 @@ import './App.css';
 import ItemList from './items-list'
 import Navigation from './navbar'
 import Accounts from './accounts'
-import { BrowserRouter as Router, Link, Route } from 'react-router-dom'
+import { BrowserRouter as Router, Route } from 'react-router-dom'
 import AddItem from './add-item'
+import Pay from './pay'
+import TransactionList from './transactionlist'
 
 class App extends Component {
 
   constructor(props) {
     super();
     this.state = {
-      baseURL: 'http://localhost:3000',
+      baseUrl: 'http://localhost:3000',
     }
   }
 
@@ -24,11 +26,16 @@ class App extends Component {
         </div>
         <div className="body">
           <Route path="/home"
-          render={() => (<ItemList baseUrl={this.state.baseURL}/>)}/>
+          render={() => (<ItemList baseUrl={this.state.baseUrl}/>)}/>
+          <Route path="/pay"
+          render={() => (<Pay baseUrl={this.state.baseUrl}/>)}/>
           <Route path="/accounts"
-          render={() => (<Accounts baseUrl={this.state.baseURL}/>)}/>
+          render={() => (<Accounts baseUrl={this.state.baseUrl}/>)}/>
           <Route path="/add-item"
-          render={() => (<AddItem baseUrl={this.state.baseURL}/>)}/>
+          render={() => (<AddItem baseUrl={this.state.baseUrl}/>)}/>
+          <Route path="/recent-transactions"
+          render={() => (<TransactionList baseUrl={this.state.baseUrl}/>)}/>
+
       </div>
     </div>
     </Router>

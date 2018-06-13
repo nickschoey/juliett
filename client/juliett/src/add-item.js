@@ -1,5 +1,6 @@
 import React from 'react'
-import { Button, Form, FormGroup, Label, Input, FormText } from 'reactstrap';
+import { Button, Form, FormGroup, Label, Input } from 'reactstrap';
+
 
 export default class AddItem extends React.Component {
   constructor(props) {
@@ -11,6 +12,8 @@ export default class AddItem extends React.Component {
     }
   }
 
+
+
   handleChange = (event) => {
     // console.log(event.target.value);
     this.setState({[event.target.name]: event.target.value})
@@ -18,22 +21,18 @@ export default class AddItem extends React.Component {
 
   postEvent = () => {
 
-    console.log(this.state.name);
-    console.log(this.state.priceFiat);
-    console.log(this.state.imageURL);
-
-  // fetch(this.props.baseUrl+'/add-item', {
-  //   method: 'POST',
-  //   headers: {'content-type': 'application/json'},
-  //   body: JSON.stringify({
-  //     name: this.state.title,
-  //     priceFiat: this.state.priceFiat,
-  //     imageURL: this.state.imageURL,
-  //   })
-  // })
-  // // .then(data => this.props.getAll())
-  // .then(res => console.log(res.status))
-  // .catch(err => console.error(err))
+  fetch(this.props.baseUrl+'/add-item', {
+    method: 'POST',
+    headers: {'content-type': 'application/json'},
+    body: JSON.stringify({
+      name: this.state.name,
+      priceFiat: this.state.priceFiat,
+      imageURL: this.state.imageURL,
+    })
+  })
+  // .then(data => this.props.getAll()) How do I direct to home page?
+  .then(res => console.log(res.status))
+  .catch(err => console.error(err))
 
 }
 
