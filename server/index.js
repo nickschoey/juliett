@@ -10,6 +10,7 @@ const ngrok = require('ngrok');
 
 app
   .use(bodyparser())
+  .use(cors())
   .use(router.routes())
   .use(router.allowedMethods())
 

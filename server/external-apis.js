@@ -8,8 +8,8 @@ let testingPrivate = '41cb6afe76aca3d456d4a3aabcb468b0506f233be9d35720e238e50245
 let testingPassword = 'testingforsolo'
 let testingAddress = '0xEdE9329fb5bf044Fb580e17a9DF095B44D848eD2'
 let webhookUrl = 'https://217e20e5.ngrok.io'
-let blockcypherHook = 'https://api.blockcypher.com/v1/eth/main/hooks?token='
-let coinbaseAddress = '0x8A12eC4EB484cdBF9A98011D68029b8AEF615162'
+let w = 1000000000000000000;
+
 
 
 const rateEURtoETH = () => {
@@ -21,43 +21,41 @@ const rateEURtoETH = () => {
 
 
 
-const event = {
-  "event": "tx-confirmation",
-  "address": testingAddress,
-  "url": webhookUrl
-}
 
-const webhook = () => {
-  return fetch(blockcypherHook+blockcypherToken, {
-    method: 'POST',
-    body: JSON.stringify(event),
-    headers: {
-      'Content-Type': 'application/json'
-    }
-  })
+
+const checkLastTX = () => {
+  return fetch(blockcypherAPI+testingAddress)
   .then(res => res.json())
-  .catch(error => console.error('Error:', error))
-  .then(response => console.log('Success:', response));
+  .then(res => res = res.txrefs.slice(0,5).reverse())
 }
 
-const getter = () => {
-  return fetch('https://api.blockcypher.com/v1/eth/main/hooks/2b1c34e9-ddf3-4cf3-9b0f-bdf156826fbc?token='+blockcypherToken)
+const checkAllTX = () => {
+  return fetch(blockcypherAPI+testingAddress)
   .then(res => res.json())
-  .then(res => console.log(res))
 }
 
-const deleter = () => {
-  return fetch('https://api.blockcypher.com/v1/eth/main/hooks/d41bffb0-740f-489b-bb59-e37ca674ad11?token='+blockcypherToken, {
-    method: 'DELETE'
-  })
-  .then(res => console.log(res.status))
+
+
+//   ROUTER ENDPOINTS ================
+
+const checkLast = async (ctx, next) => {
+  ctx.body = await checkLastTX()
+  next()
 }
 
-// webhook()
-getter()
-// deleter()
+const checkExchangeRate = async (ctx, next) => {
+  ctx.body = await rateEURtoETH()
+  next()
+}
 
-
+const checkAll = async (ctx, next) => {
+  ctx.body = await checkAllTX()
+  next()
+}
 
 
 exports.rateEURtoETH = rateEURtoETH
+exports.checkLast = checkLast
+exports.checkAll = checkAll
+exports.checkLastTX = checkLastTX
+exports.checkExchangeRate = checkExchangeRate

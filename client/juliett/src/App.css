@@ -47,6 +47,10 @@ img.pizza{
   margin: 50px;
 }
 
+.arrow{
+  padding-bottom: 100px;
+}
+
 .item{
   width: 25rem;
   padding: 10px

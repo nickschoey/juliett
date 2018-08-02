@@ -1,11 +1,11 @@
 'use strict';
 
 const item = require ('./controllers/controllers-item.js');
-const misc = require ('./controllers/controllers-misc.js');
 const accounting = require ('./controllers/controllers-accounting.js');
 const Router = require('koa-router')
 const router = new Router();
 const fs = require('fs');
+const externalapis = require('./external-apis')
 
 
 
@@ -23,8 +23,11 @@ router
   .post('/add-receipt', accounting.addReceipt)
   .delete('/delete-receipt/:item', accounting.deleteReceipt)
 
-  //-------------webhooks
-  .post('/', misc.newTX)
+  //-------------purchases
+  // .post('/purchase/:item', item.addItem)
+  .get('/checklast', externalapis.checkLast)
+  .get('/check-rate', externalapis.checkExchangeRate)
+  .get('/check-all', externalapis.checkAll)
 
 
 module.exports = router

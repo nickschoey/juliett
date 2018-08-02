@@ -56,7 +56,7 @@ export default class TransactionList extends React.Component{
           </tc>
         </Table>
       </div>
-      <img alt='arrow' height='100px' src={arrow}/>
+      <img class="arrow" alt='arrow' height='100px' src={arrow}/>
         <div className="transaction">
           {this.state.bool
             ? this.state.txs.txrefs.map((el) => <Transaction el={el} />)

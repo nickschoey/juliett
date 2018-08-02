@@ -4,3 +4,6 @@
     callback_errors: 0,
     address: '0xEdE9329fb5bf044Fb580e17a9DF095B44D848eD2',
     event: 'unconfirmed-tx' }
+
+
+exchange rate and eth price saved to database as WEIs

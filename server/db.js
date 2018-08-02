@@ -15,7 +15,7 @@ const addItem = (item) => {
 
 
 const deleteItem = async (item) => {
-  let data = await  Item.findOneAndDelete({name: item})
+  let data = await Item.findOneAndDelete({name: item})
     if (data) {console.log("successfully deleted item")}
     return data
 }
@@ -25,7 +25,8 @@ const viewItem = async (item) => {
   let current_rate = await externalapis.rateEURtoETH(); // get current rate before viewing item
   current_rate = current_rate / Math.pow(10,18) // should make this dynamic);
   data.forEach(el => {
-    el.priceCryptocurrency = "Ξ " + (el.priceFiat * current_rate).toString();
+    el._priceCryptoNumber = (el.priceFiat* current_rate)
+    el.priceCryptocurrency = "Ξ " + (el.priceFiat * current_rate).toFixed(7).toString();
     el.exchangeRate = current_rate.toString();
     el.priceFiat = "€ " + el.priceFiat.toString();
   });
@@ -35,10 +36,11 @@ const viewItem = async (item) => {
 const viewItems = async () => {
   let data = await Item.find()
   let current_rate = await externalapis.rateEURtoETH(); // get current rate before viewing item
-  current_rate = current_rate / Math.pow(10,18) // should make this dynamic);
+  let current_rate_played = current_rate / Math.pow(10,18) // should make this dynamic);
   data.forEach(el => {
-    el.priceCryptocurrency = "Ξ " + (el.priceFiat * current_rate).toString();
-    el.exchangeRate = current_rate.toString();
+    el._priceCryptoNumber = (el.priceFiat * current_rate)
+    el.priceCryptocurrency = "Ξ " + (el.priceFiat * current_rate_played).toFixed(7).toString();
+    el.exchangeRate = current_rate_played.toString();
     el.priceFiat = "€ " + el.priceFiat.toString();
   });
   return data
@@ -56,9 +58,8 @@ const editItem = async (item) => {
 
 const addReceipt = async (receipt) => {
   let data = await externalapis.rateEURtoETH();
-  console.log(data);
   receipt.exchangeRate = data
-  receipt.priceCryptocurrency = data * receipt.priceFiat
+  receipt.date = new Date()
   Receipt.create(receipt)
     .then(res => console.log("successfully receipted item"))
     .catch(err => console.error(err))

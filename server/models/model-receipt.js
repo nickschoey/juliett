@@ -2,13 +2,13 @@ const mongoose = require('mongoose')
 const externalapis = require('../external-apis')
 
 const Receipt = new mongoose.Schema({
+  date: Date,
   item: String,
   fiatUsed: String,
   cryptocurrencyUsed: String,
   priceFiat: Number,
-  priceCryptocurrency: Number, //in weis
+  pricePaid: Number, //in weis
   exchangeRate: Number,
-  TimeStamp: Date,
   block: Number,
   hash: String
 })
