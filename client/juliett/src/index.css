@@ -4,7 +4,7 @@ body {
   font-family: sans-serif;
 }
 
-// ---------------------------                                    ---- NAVBAR
+/* ---------------------------                                    ---- NAVBAR */
 
 
 ul {
@@ -32,5 +32,3 @@ li a {
 li a:hover {
     background-color: #111;
 }
-
-navbar.container-fluid
