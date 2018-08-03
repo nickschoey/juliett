@@ -11,3 +11,8 @@ module.exports.authenticate = async (ctx, next) => {
 
 }
 
+module.exports.getAll = async (ctx, next) => {
+  await userServices.getAll(ctx)
+  next()
+
+}

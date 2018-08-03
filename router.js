@@ -13,6 +13,7 @@ router
   //----------user  
   .post('/users/authenticate', userController.authenticate)
   .post('/users/register', jwt, userController.create)
+  .get('/users', jwt, userController.getAll)
   .put('/', jwt)
   .delete('/', jwt)
 
