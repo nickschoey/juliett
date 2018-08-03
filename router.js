@@ -5,19 +5,20 @@ const accounting = require('./controllers/controllers-accounting.js');
 const Router = require('koa-router')
 const router = new Router();
 const externalapis = require('./external-apis')
-
-
+const jwt = require('./middlewares/jwt')
+const authenticate = require('./middlewares/authenticate.js');
+const userController = require('./controllers/controller-user');
 
 router
   //----------user  
-  .post('/authenticate')
-  .post('/register')
-  .put('/')
-  .delete('/')
+  .post('/users/authenticate', userController.authenticate)
+  .post('/users/register', jwt, userController.create)
+  .put('/', jwt)
+  .delete('/', jwt)
 
   //-------------items
   .get('/view/:name', item.viewItem)
-  .get('/view-all', item.viewItems)
+  .get('/view-all', jwt, item.viewItems)
   .post('/add-item', item.addItem)
   .delete('/delete/:name', item.deleteItem)
   //.put('/topics/:name'), controller.editItem
