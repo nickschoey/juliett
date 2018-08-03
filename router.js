@@ -1,6 +1,6 @@
 'use strict';
 
-const item = require('./controllers/item.controller.js');
+const itemController = require('./controllers/item.controller.js');
 const accounting = require('./controllers/accounting.controller.js');
 const userController = require('./controllers/user.controller');
 const Router = require('koa-router')
@@ -16,10 +16,10 @@ router
   .delete('/users/:id', jwt, userController.delete)
 
   //-------------items
-  .get('/view/:name', item.viewItem)
-  .get('/view-all', jwt, item.viewItems)
-  .post('/add-item', item.addItem)
-  .delete('/delete/:name', item.deleteItem)
+  // .get('/view/:name', item.viewItem)
+  .get('/items', itemController.getAll)
+  // .post('/add-item', item.addItem)
+  // .delete('/delete/:name', item.deleteItem)
   //.put('/topics/:name'), controller.editItem
 
   //-------------accounting

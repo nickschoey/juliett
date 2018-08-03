@@ -1,7 +1,8 @@
 const db = require ('../db')
+const itemServices = require('../services/item.services')
 
-module.exports.viewItems = async (ctx, next) => {
-  ctx.body = await db.viewItems()
+module.exports.getAll = async (ctx, next) => {
+  ctx.body = await itemServices.getAll()
   next()
 }
 

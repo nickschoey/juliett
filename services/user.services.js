@@ -28,7 +28,8 @@ module.exports.create = async (ctx) => {
 module.exports.authenticate = async (ctx, next) => {
 
   const userExists = await User.findOne({ username: ctx.request.body.username })
-
+  console.log(userExists);
+  
   if (!userExists) {
     ctx.status = 401;
     ctx.body = {
@@ -40,8 +41,10 @@ module.exports.authenticate = async (ctx, next) => {
   if (bcrypt.compareSync(ctx.request.body.password, userExists.password)) {
     ctx.status = 200;
     ctx.body = {
-      token: jwt.sign({ role: 'admin' }, config.secret),
-      message: "Successfully logged in!"
+      token: jwt.sign({ role: 'admin', userId: userExists._id }, config.secret),
+      message: "Successfully logged in!",
+      firstname: userExists.firstName,
+      lastname: userExists.lastName
     };
   } else {
     ctx.status = ctx.status = 401;
