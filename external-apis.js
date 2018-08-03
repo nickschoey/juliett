@@ -1,16 +1,14 @@
 const fetch = require('cross-fetch')
-const request = require('request')
-
 const coinmarketAPIeth = 'https://api.coinmarketcap.com/v2/ticker/1027/?convert=EUR'
-let blockcypherToken = '253d2ec058d24dffa4c529a9464bc4b3'
-let blockcypherAPI = 'https://api.blockcypher.com/v1/eth/main/addrs/'
-let testingPassword = 'testingforsolo'
+const blockcypherToken = '253d2ec058d24dffa4c529a9464bc4b3'
+const blockcypherAPI = 'https://api.blockcypher.com/v1/eth/main/addrs/'
+const testingPassword = 'testingforsolo'
 // let testingAddress = '0xEdE9329fb5bf044Fb580e17a9DF095B44D848eD2' //Old Doruk's adress
-let testingAddress = '0xe182CcFA27E955C94E7D649aD1Cb32BA90295591' //My new and shiny Ethereum wallet
-let webhookUrl = 'https://217e20e5.ngrok.io'
-let w = 1000000000000000000;
-let etherScanAPIKey = '4UBFZT7AHFZ67HFIJKEQC7XC1HAYR8EDPG'
-let etherScanAPI = 'http://api.etherscan.io/api?module=account&action=txlist&address='
+const testingAddress = '0xe182CcFA27E955C94E7D649aD1Cb32BA90295591' //My new and shiny Ethereum wallet
+const webhookUrl = 'https://217e20e5.ngrok.io'
+const w = 1000000000000000000;
+const etherScanAPIKey = '4UBFZT7AHFZ67HFIJKEQC7XC1HAYR8EDPG'
+const etherScanAPI = 'http://api.etherscan.io/api?module=account&action=txlist&address='
 
 
 
@@ -23,15 +21,14 @@ const rateEURtoETH = () => {
 
 
 const checkLastTX = () => {
-  return fetch(`http://api.etherscan.io/api?module=account&action=txlist&address=0xe182CcFA27E955C94E7D649aD1Cb32BA90295591&startblock=0&endblock=99999999&sort=asc&apikey=4UBFZT7AHFZ67HFIJKEQC7XC1HAYR8EDPG`)
+  return fetch(`http://api.etherscan.io/api?module=account&action=txlist&address=${testingAddress}&startblock=0&endblock=99999999&sort=asc&apikey=${etherScanAPIKey}`)
     .then(res => res.json())
-}
-
-const checkAllTX = () => {
-  return fetch(`http://api.etherscan.io/api?module=account&action=txlist&address=0xe182CcFA27E955C94E7D649aD1Cb32BA90295591&startblock=0&endblock=99999999&sort=asc&apikey=4UBFZT7AHFZ67HFIJKEQC7XC1HAYR8EDPG`)
+  }
+  
+  const checkAllTX = () => {
+    return fetch(`http://api.etherscan.io/api?module=account&action=txlist&address=0xe182CcFA27E955C94E7D649aD1Cb32BA90295591&startblock=0&endblock=99999999&sort=asc&apikey=4UBFZT7AHFZ67HFIJKEQC7XC1HAYR8EDPG`)
     .then(res => res.json())
-    .then(res => console.log(res))
-
+    
 
 }
 

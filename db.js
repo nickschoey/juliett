@@ -8,20 +8,20 @@ const config = require('./config.json');
 
 //   ITEM ENDPOINTS ================
 
-const addItem = (item) => {
+module.exports.addItem = (item) => {
   Item.create(item)
     .then(res => console.log("successfully added item"))
     .catch(err => console.error(err))
 }
 
 
-const deleteItem = async (item) => {
+module.exports.deleteItem = async (item) => {
   let data = await Item.findOneAndDelete({name: item})
     if (data) {console.log("successfully deleted item")}
     return data
 }
 
-const viewItem = async (item) => {
+module.exports.viewItem = async (item) => {
   let data = await Item.find({name: item})
   let current_rate = await externalapis.rateEURtoETH(); // get current rate before viewing item
   current_rate = current_rate / Math.pow(10,18) // should make this dynamic);
@@ -34,7 +34,7 @@ const viewItem = async (item) => {
   return data
 }
 
-const viewItems = async () => {
+module.exports.viewItems = async () => {
   let data = await Item.find()
   let current_rate = await externalapis.rateEURtoETH(); // get current rate before viewing item
   let current_rate_played = current_rate / Math.pow(10,18) // should make this dynamic);
@@ -49,7 +49,7 @@ const viewItems = async () => {
 
 /*
 
-const editItem = async (item) => {
+module.exports.editItem = async (item) => {
 
 }
 
@@ -57,7 +57,7 @@ const editItem = async (item) => {
 
 //   ACCOUNTING ENDPOINTS ================
 
-const addReceipt = async (receipt) => {
+module.exports.addReceipt = async (receipt) => {
   let data = await externalapis.rateEURtoETH();
   receipt.exchangeRate = data
   receipt.date = new Date()
@@ -67,19 +67,19 @@ const addReceipt = async (receipt) => {
 }
 
 
-const deleteReceipt = async (receipt) => {
+module.exports.deleteReceipt = async (receipt) => {
   let data = await Receipt.findOneAndDelete({item: receipt})
   if (data) {console.log("successfully deleted receipt")}
   return data
 
 }
 
-const viewReceipt = async (receipt) => {
+module.exports.viewReceipt = async (receipt) => {
   let data = await Receipt.findOne({item: receipt})
   return data
 }
 
-const viewReceipts = async () => {
+module.exports.viewReceipts = async () => {
   let data = await Receipt.find()
   return data
 }
@@ -92,16 +92,3 @@ db.connect(config.connectionString)
   .catch(err => console.error(err));
 
 
-
-//     EXPORTS =================================================================
-
-exports.db = db
-exports.addItem = addItem
-exports.deleteItem = deleteItem
-//exports.editItem = editItem
-exports.viewItems = viewItems
-exports.viewItem = viewItem
-exports.addReceipt = addReceipt
-exports.viewReceipt = viewReceipt
-exports.viewReceipts = viewReceipts
-exports.deleteReceipt = deleteReceipt
