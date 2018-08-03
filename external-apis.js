@@ -9,6 +9,8 @@ let testingPassword = 'testingforsolo'
 let testingAddress = '0xe182CcFA27E955C94E7D649aD1Cb32BA90295591' //My new and shiny Ethereum wallet
 let webhookUrl = 'https://217e20e5.ngrok.io'
 let w = 1000000000000000000;
+let etherScanAPIKey = '4UBFZT7AHFZ67HFIJKEQC7XC1HAYR8EDPG'
+let etherScanAPI = 'http://api.etherscan.io/api?module=account&action=txlist&address='
 
 
 
@@ -21,13 +23,15 @@ const rateEURtoETH = () => {
 
 
 const checkLastTX = () => {
-  return fetch(blockcypherAPI+testingAddress)
-  .then(res => res.json())
+  return fetch(`http://api.etherscan.io/api?module=account&action=txlist&address=0xe182CcFA27E955C94E7D649aD1Cb32BA90295591&startblock=0&endblock=99999999&sort=asc&apikey=4UBFZT7AHFZ67HFIJKEQC7XC1HAYR8EDPG`)
+    .then(res => res.json())
 }
 
 const checkAllTX = () => {
-   return fetch(blockcypherAPI+testingAddress)
+  return fetch(`http://api.etherscan.io/api?module=account&action=txlist&address=0xe182CcFA27E955C94E7D649aD1Cb32BA90295591&startblock=0&endblock=99999999&sort=asc&apikey=4UBFZT7AHFZ67HFIJKEQC7XC1HAYR8EDPG`)
     .then(res => res.json())
+    .then(res => console.log(res))
+
 
 }
 

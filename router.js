@@ -4,7 +4,6 @@ const item = require ('./controllers/controllers-item.js');
 const accounting = require ('./controllers/controllers-accounting.js');
 const Router = require('koa-router')
 const router = new Router();
-const fs = require('fs');
 const externalapis = require('./external-apis')
 
 

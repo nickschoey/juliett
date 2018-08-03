@@ -2,6 +2,7 @@ const db = require('mongoose');
 const Item = require('./models/model-item')
 const Receipt = require('./models/model-receipt')
 const externalapis = require('./external-apis')
+const config = require('./config.json');
 
 //   DATABASE ENDPOINTS =======================================================
 
@@ -86,8 +87,8 @@ const viewReceipts = async () => {
 
 //   DATABASE CONNECTION =======================================================
 
-db.connect('mongodb://localhost/Juliett')
-  .then(() => { console.log('Connection Successful!')})
+db.connect(config.connectionString)
+  .then(() => { console.log('Connection to database is successful!')})
   .catch(err => console.error(err));
 
 
