@@ -2,16 +2,16 @@
 
 const item = require('./controllers/item.controller.js');
 const accounting = require('./controllers/accounting.controller.js');
+const userController = require('./controllers/user.controller');
 const Router = require('koa-router')
 const router = new Router();
 const externalapis = require('./external-apis')
 const jwt = require('./middlewares/jwt')
-const userController = require('./controllers/user.controller');
 
 router
   //----------users
   .post('/users/authenticate', userController.authenticate)
-  .post('/users/register', jwt, userController.create)
+  .post('/users/register', userController.create)
   .get('/users', jwt, userController.getAll)
   .delete('/users/:id', jwt, userController.delete)
 

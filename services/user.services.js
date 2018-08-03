@@ -6,18 +6,19 @@ const User = require('../models/user.model');
 
 module.exports.create = async (ctx) => {
 
-  const userExists = await User.find({username: ctx.request.username })
-
+  const userExists = await User.findOne({ username: ctx.request.body.username })
+  
   if (userExists) {
     ctx.status = 401;
     ctx.body = {
-      message: "The username you entered already exisits in the database"};
+      message: "The username you entered already exisits in the database"
+    };
     return ctx;
   }
   else {
     const salt = bcrypt.genSaltSync(saltRounds);
-    ctx.request.password = bcrypt.hashSync(ctx.request.password, salt);
-    const newUser = await User.create(user)
+    ctx.request.password = bcrypt.hashSync(ctx.request.body.password, salt);
+    const newUser = await User.create(ctx.request.body)
     ctx.status = 200;
     ctx.body = newUser
     return ctx;
@@ -25,9 +26,9 @@ module.exports.create = async (ctx) => {
 
 }
 module.exports.authenticate = async (ctx, next) => {
-  
+
   const userExists = await User.findOne({ username: ctx.request.body.username })
-  
+
   if (!userExists) {
     ctx.status = 401;
     ctx.body = {
@@ -53,10 +54,19 @@ module.exports.authenticate = async (ctx, next) => {
 
 module.exports.getAll = async (ctx) => {
   const users = await User.find({});
-  console.log(users);
-  
+
   ctx.status = 200;
   ctx.body = users;
+
+  return ctx;
+}
+
+module.exports.delete = async (ctx) => {
+
+  const deletedUser = await User.deleteOne({ _id: ctx.params.id });
+
+  ctx.status = 200;
+  ctx.body = { message: 'User deleted'};
 
   return ctx;
 }
