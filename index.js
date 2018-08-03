@@ -14,5 +14,5 @@ app
   .use(router.allowedMethods())
 
   .listen(port, function(){
-    console.log(`Server running on ------- LOCALHOST:${port}`)
+    console.log(`Server running on http://localhost:${port}/`)
   });

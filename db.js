@@ -1,6 +1,6 @@
 const db = require('mongoose');
-const Item = require('./models/model-item')
-const Receipt = require('./models/model-receipt')
+const Item = require('./models/item.model')
+const Receipt = require('./models/receipt.model')
 const externalapis = require('./external-apis')
 const config = require('./config.json');
 

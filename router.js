@@ -1,21 +1,19 @@
 'use strict';
 
-const item = require('./controllers/controllers-item.js');
-const accounting = require('./controllers/controllers-accounting.js');
+const item = require('./controllers/item.controller.js');
+const accounting = require('./controllers/accounting.controller.js');
 const Router = require('koa-router')
 const router = new Router();
 const externalapis = require('./external-apis')
 const jwt = require('./middlewares/jwt')
-const authenticate = require('./middlewares/authenticate.js');
-const userController = require('./controllers/controller-user');
+const userController = require('./controllers/user.controller');
 
 router
-  //----------user  
+  //----------users
   .post('/users/authenticate', userController.authenticate)
   .post('/users/register', jwt, userController.create)
   .get('/users', jwt, userController.getAll)
-  .put('/', jwt)
-  .delete('/', jwt)
+  .delete('/users/:id', jwt, userController.delete)
 
   //-------------items
   .get('/view/:name', item.viewItem)

@@ -16,3 +16,13 @@ module.exports.getAll = async (ctx, next) => {
   next()
 
 }
+
+module.exports.delete = async (ctx, next) => {
+  await userServices.delete(ctx)
+  console.log(ctx.params.id);
+  
+  
+  // await userServices.getAll(ctx)
+  next()
+
+}

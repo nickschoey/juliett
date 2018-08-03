@@ -2,7 +2,7 @@ const config = require('../config.json');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 const saltRounds = 10;
-const User = require('../models/model-user');
+const User = require('../models/user.model');
 
 module.exports.create = async (ctx) => {
 
