@@ -1,7 +1,7 @@
 'use strict';
 
-const item = require ('./controllers/controllers-item.js');
-const accounting = require ('./controllers/controllers-accounting.js');
+const item = require('./controllers/controllers-item.js');
+const accounting = require('./controllers/controllers-accounting.js');
 const Router = require('koa-router')
 const router = new Router();
 const externalapis = require('./external-apis')
@@ -9,6 +9,12 @@ const externalapis = require('./external-apis')
 
 
 router
+  //----------user  
+  .post('/authenticate')
+  .post('/register')
+  .put('/')
+  .delete('/')
+
   //-------------items
   .get('/view/:name', item.viewItem)
   .get('/view-all', item.viewItems)
