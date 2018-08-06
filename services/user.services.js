@@ -43,8 +43,8 @@ module.exports.authenticate = async (ctx, next) => {
     ctx.body = {
       token: jwt.sign({ role: 'admin', userId: userExists._id }, config.secret),
       message: "Successfully logged in!",
-      firstname: userExists.firstName,
-      lastname: userExists.lastName
+      firstName: userExists.firstName,
+      lastName: userExists.lastName
     };
   } else {
     ctx.status = ctx.status = 401;

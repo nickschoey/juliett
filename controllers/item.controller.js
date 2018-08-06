@@ -6,21 +6,24 @@ module.exports.getAll = async (ctx, next) => {
   next()
 }
 
+module.exports.addItem = async (ctx, next) => {
+  ctx.body = await itemServices.addItem(ctx.request.body)
+  next()
+}
+
+module.exports.deleteItem = async (ctx, next) => {
+  console.log(ctx.params.id);
+  
+  ctx.body = await itemServices.deleteItem(ctx)
+  next()
+}
+
 module.exports.viewItem = async (ctx, next) => {
   ctx.body = await db.viewItem(ctx.params.name)
   next()
 }
 
-module.exports.addItem = async (ctx, next) => {
-  ctx.body = ctx.request.body
-  await db.addItem(ctx.body)
-  next()
-}
 
-module.exports.deleteItem = async (ctx, next) => {
-  ctx.body = await db.deleteItem(ctx.params.name)
-  next()
-}
 
 /*
 

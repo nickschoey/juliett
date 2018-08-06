@@ -13,3 +13,17 @@ module.exports.getAll = async () => {
   // });
   return data
 }
+
+module.exports.addItem = async (item) => {
+  let res = await Item.create(item)
+  console.log(res);
+  return res;  
+}
+
+
+module.exports.deleteItem = async (ctx) => {
+  await Item.deleteOne({ _id: ctx.params.id });
+  ctx.status = 200;
+  ctx.body = { message: 'Successfully deleted' };
+  return ctx
+}

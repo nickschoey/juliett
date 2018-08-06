@@ -2,11 +2,8 @@ const mongoose = require('mongoose')
 
 const Item = new mongoose.Schema({
   name: String,
-  priceFiat: 0,
-  priceCryptocurrency: String,
-  exchangeRate: String,
-  _priceCryptoNumber: Number,
-  _priceFiat: Number,
+  description: String,
+  priceFiat: {type: Number, min: 0},
   imageURL: String,
 })
 
