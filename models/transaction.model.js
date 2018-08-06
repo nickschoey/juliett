@@ -6,7 +6,8 @@ const schema = new Schema({
   hash: { type: String, required: true },
   from: { type: String, required: true },
   value: { type: Number, required: true },
-  confirmations: { type: Number}
+  confirmations: { type: Number},
+  validated: {type: Boolean, default: false}
 });
 
 schema.set('toJSON', { virtuals: true });

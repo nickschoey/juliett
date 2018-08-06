@@ -26,7 +26,7 @@ module.exports.updateTransactions = async () => {
           timeStamp: transaction.timeStamp,
           hash: transaction.hash,
           from: transaction.from,
-          value: transaction.value,
+          value: transaction.value / 1000000000000000000,
         }).then(res => console.log(`${transaction.hash} has been added to the database`))
       }
     }
@@ -37,10 +37,13 @@ module.exports.updateTransactions = async () => {
         timeStamp: tx.timeStamp,
         hash: tx.hash,
         from: tx.from,
-        value: tx.value,
+        value: tx.value / 1000000000000000000,
       }).then(res => console.log(`${tx.hash} has been added to the database`))
     }
   }
+
+  const returnTransactions = await Transaction.find({})
+  return returnTransactions;
 };
 
 // module.exports.getAllTransactions = async () => {
