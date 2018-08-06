@@ -23,6 +23,13 @@ module.exports.newOrder = async (ctx) => {
 module.exports.getAll = async (ctx) => {
   const orders = await Order.find({});
   ctx.status = 200;
-  ctx.body = orders;
+  ctx.body = orders.reverse();
   return ctx;
+}
+
+module.exports.deleteOrder = async (ctx) => {
+  await Order.deleteOne({ _id: ctx.params.id });
+  ctx.status = 200;
+  ctx.body = { message: 'Successfully deleted' };
+  return ctx
 }

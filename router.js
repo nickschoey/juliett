@@ -8,7 +8,7 @@ const Router = require('koa-router')
 const router = new Router();
 const jwt = require('./middlewares/jwt')
 const transactionController = require('./controllers/transactions.controller')
-// const externalapis = require('./external-apis')
+
 
 router
   //----------users
@@ -28,6 +28,7 @@ router
   //-------------------Order
   .post('/order', orderController.newOrder)
   .get('/order', orderController.getAll)
+  .delete('/order/:id', orderController.deleteOrder)
 
   
   //-------------Transactions
