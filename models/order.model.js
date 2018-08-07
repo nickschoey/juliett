@@ -13,7 +13,7 @@ const schema = new Schema({
   fiatPrice: { type: Number },
   paid: {type: Boolean, default: false},
   confirmed: {type: Boolean, default: false},
-  transactionId: {type: String },
+  transaction: {type: Schema.Types.ObjectId, ref: 'Transaction' },
   createdDate: { type: Date, default: Date.now },
 });
 

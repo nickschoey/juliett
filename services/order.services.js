@@ -1,5 +1,5 @@
 const Order = require('../models/order.model');
-
+const Tx = require('../models/transaction.model');
 
 module.exports.newOrder = async (ctx) => {
   const order = ctx.request.body;
@@ -14,6 +14,7 @@ module.exports.newOrder = async (ctx) => {
     cryptoPrice: order.cryptoPrice,
     fiatPrice: order.price
   })
+
   console.log(res);
   ctx.status = 200;
   ctx.body = res
@@ -32,4 +33,18 @@ module.exports.deleteOrder = async (ctx) => {
   ctx.status = 200;
   ctx.body = { message: 'Successfully deleted' };
   return ctx
+}
+module.exports.deleteOrder = async (ctx) => {
+  await Order.deleteOne({ _id: ctx.params.id });
+  ctx.status = 200;
+  ctx.body = { message: 'Successfully deleted' };
+  return ctx
+}
+
+module.exports.confirmOrder = async (ctx) => {
+  const order = await Order.findByIdAndUpdate(ctx.request.body.id, { $set: { confirmed: true } });
+  ctx.status = 200;
+  ctx.body = order._id;
+  
+  return ctx;
 }

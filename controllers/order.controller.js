@@ -16,3 +16,9 @@ module.exports.deleteOrder = async (ctx, next) => {
   ctx.body = await orderServices.deleteOrder(ctx)
   next()
 }
+
+module.exports.confirmOrder = async (ctx, next) => {
+  
+  await orderServices.confirmOrder(ctx)
+  next()
+}

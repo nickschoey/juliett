@@ -29,6 +29,7 @@ router
   .post('/order', orderController.newOrder)
   .get('/order', orderController.getAll)
   .delete('/order/:id', orderController.deleteOrder)
+  .put('/order', orderController.confirmOrder)
 
   
   //-------------Transactions

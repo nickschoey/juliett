@@ -15,11 +15,7 @@ module.exports.addItem = (item) => {
 }
 
 
-module.exports.deleteItem = async (item) => {
-  let data = await Item.findOneAndDelete({name: item})
-    if (data) {console.log("successfully deleted item")}
-    return data
-}
+
 
 module.exports.viewItem = async (item) => {
   let data = await Item.find({name: item})

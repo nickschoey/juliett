@@ -11,10 +11,6 @@ const etherScanAPIKey = '4UBFZT7AHFZ67HFIJKEQC7XC1HAYR8EDPG'
 const etherScanAPI = 'http://api.etherscan.io/api?module=account&action=txlist&address='
 
 
-
-
-
-
 module.exports.checkLastTX = () => {
   return fetch(`http://api.etherscan.io/api?module=account&action=txlist&address=${testingAddress}&startblock=0&endblock=99999999&sort=asc&apikey=${etherScanAPIKey}`)
     .then(res => res.json())
