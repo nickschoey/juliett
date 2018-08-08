@@ -16,7 +16,9 @@ module.exports.newOrder = async (ctx) => {
   })
 
   ctx.status = 200;
-  ctx.body = res
+  console.log(res._id);
+  
+  ctx.body = res._id
   return ctx;
 }
 
@@ -33,17 +35,18 @@ module.exports.deleteOrder = async (ctx) => {
   ctx.body = { message: 'Successfully deleted' };
   return ctx
 }
-module.exports.deleteOrder = async (ctx) => {
-  await Order.deleteOne({ _id: ctx.params.id });
-  ctx.status = 200;
-  ctx.body = { message: 'Successfully deleted' };
-  return ctx
-}
+
 
 module.exports.confirmOrder = async (ctx) => {
   const order = await Order.findByIdAndUpdate(ctx.request.body.id, { $set: { confirmed: true } });
   ctx.status = 200;
   ctx.body = order._id;
   
+  return ctx;
+}
+
+
+module.exports.verifyOrder = async (ctx) => {
+
   return ctx;
 }

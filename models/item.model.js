@@ -5,6 +5,7 @@ const Item = new mongoose.Schema({
   description: String,
   priceFiat: {type: Number, min: 0},
   imageURL: String,
+  category: String,
   createdDate: { type: Date, default: Date.now }
 })
 
