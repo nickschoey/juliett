@@ -15,10 +15,10 @@ module.exports.newOrder = async (ctx) => {
     fiatPrice: order.price
   })
 
+  console.log('new order id', res._id);
   ctx.status = 200;
-  console.log(res._id);
-  
   ctx.body = res._id
+  
   return ctx;
 }
 

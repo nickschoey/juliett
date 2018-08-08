@@ -1,7 +1,7 @@
 const orderServices = require('../services/order.services')
 
 module.exports.newOrder = async (ctx, next) => {
-  ctx.body = await orderServices.newOrder(ctx)
+  await orderServices.newOrder(ctx)
   next()
 }
 
