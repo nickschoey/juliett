@@ -28,7 +28,7 @@ module.exports.create = async (ctx) => {
 module.exports.authenticate = async (ctx, next) => {
 
   const userExists = await User.findOne({ username: ctx.request.body.username })
-  console.log(userExists);
+
   
   if (!userExists) {
     ctx.status = 401;

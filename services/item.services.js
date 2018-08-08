@@ -11,12 +11,13 @@ module.exports.getAll = async () => {
   //   el.exchangeRate = current_rate_played.toString();
   //   el.priceFiat = "€ " + el.priceFiat.toString();
   // });
+  console.log(data);
+  
   return data
 }
 
 module.exports.addItem = async (item) => {
   let res = await Item.create(item)
-  console.log(res);
   return res;  
 }
 

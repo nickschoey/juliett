@@ -5,6 +5,7 @@ const Item = new mongoose.Schema({
   description: String,
   priceFiat: {type: Number, min: 0},
   imageURL: String,
+  createdDate: { type: Date, default: Date.now }
 })
 
 module.exports = mongoose.model('Item', Item);

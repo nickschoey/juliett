@@ -15,7 +15,6 @@ module.exports.newOrder = async (ctx) => {
     fiatPrice: order.price
   })
 
-  console.log(res);
   ctx.status = 200;
   ctx.body = res
   return ctx;

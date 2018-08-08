@@ -11,7 +11,6 @@ module.exports.getAll = async (ctx, next) => {
 }
 
 module.exports.deleteOrder = async (ctx, next) => {
-  console.log(ctx.params.id);
 
   ctx.body = await orderServices.deleteOrder(ctx)
   next()

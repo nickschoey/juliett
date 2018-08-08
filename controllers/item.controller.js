@@ -12,7 +12,6 @@ module.exports.addItem = async (ctx, next) => {
 }
 
 module.exports.deleteItem = async (ctx, next) => {
-  console.log(ctx.params.id);
   
   ctx.body = await itemServices.deleteItem(ctx)
   next()
