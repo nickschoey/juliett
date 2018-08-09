@@ -11,7 +11,7 @@ module.exports.getAll = async () => {
   //   el.exchangeRate = current_rate_played.toString();
   //   el.priceFiat = "€ " + el.priceFiat.toString();
   // });
-  console.log(data);
+  // console.log(data);
   
   return data
 }

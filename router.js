@@ -34,7 +34,7 @@ router
   
   //-------------Transactions
   .get('/transactions', transactionController.updateTransactions)
-  
+  .post('/verify', transactionController.verifyTransactions)
   // .get('/view-receipt/:item', accounting.viewReceipt)
   // .get('/view-receipts', accounting.viewReceipts)
   // .post('/add-receipt', accounting.addReceipt)

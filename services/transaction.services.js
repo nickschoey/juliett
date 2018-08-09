@@ -15,7 +15,7 @@ module.exports.updateTransactions = async () => {
   if (registeredTransactions.length > 0) {
     const registeredIndex = registeredTransactions.reduce(
       (acc, el) => {
-      acc[el.hash] = true;
+        acc[el.hash] = true;
         return acc;
       }, {});
     //
@@ -26,7 +26,7 @@ module.exports.updateTransactions = async () => {
           hash: transaction.hash,
           from: transaction.from,
           value: transaction.value / 1000000000000000000,
-        }).then(res => console.log(`${transaction.hash} has been added to the database`))
+        }).then(res => console.log(`transaction ${transaction.hash} has been added to the database`))
       }
     }
 
@@ -37,7 +37,7 @@ module.exports.updateTransactions = async () => {
         hash: tx.hash,
         from: tx.from,
         value: tx.value / 1000000000000000000,
-      }).then(res => console.log(`${tx.hash} has been added to the database`))
+      }).then(res => console.log(`transaction ${tx.hash} has been added to the database`))
     }
   }
 
@@ -49,27 +49,43 @@ module.exports.updateTransactions = async () => {
   for (const order of pendingOrders) {
     for (const tx of returnTransactions) {
       if (order.wallet.toLowerCase() === tx.from.toLowerCase() && order.cryptoPrice === tx.value) {
-        console.log(`order ${order._id} matched with ${tx.hash}`)
+        console.log(`order ${order._id} matched with tx ${tx.hash}`)
         await Order.findByIdAndUpdate(order._id, { $set: { paid: true, transaction: tx._id } });
         await Transaction.findByIdAndUpdate(tx._id, { $set: { validated: true } })
         break
       }
     }
   }
-  const matchedOrders = await Order.find( {paid: true, confirmed: false})
-  const unmatchedOrders = await Order.find( {paid: false, confirmed: false})
-  const unmatchedTxs = await Transaction.find( {validated: false})
-  
+  const matchedOrders = await Order.find({ paid: true, confirmed: false })
+  const unmatchedOrders = await Order.find({ paid: false, confirmed: false })
+  const unmatchedTxs = await Transaction.find({ validated: false })
 
 
-  return {matchedOrders, unmatchedOrders, unmatchedTxs};
+
+  return { matchedOrders, unmatchedOrders, unmatchedTxs };
 };
 
-// module.exports.getAllTransactions = async () => {
-//   const allTransactions = await Transaction.find({})
 
-//   return allTra
-// }
-// Add new transactions
+module.exports.verifyTransactions = async (ctx) => {
 
-// return transactions
+  // Update transactions and matches
+  await module.exports.updateTransactions()
+  // Ask for transaction with ID === ctx
+  const transaction = await Order.findOne({ _id: ctx.request.body.id })
+  console.log('trans', transaction.paid);
+  
+  if (transaction.paid === true) {
+    console.log('good');
+    
+    ctx.status = 200;
+    ctx.body = transaction.paid;
+    return ctx;
+    
+  } else {
+    console.log('baaad');
+    ctx.status = 418;
+    return ctx
+  }
+
+
+}
