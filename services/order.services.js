@@ -16,36 +16,39 @@ module.exports.newOrder = async (ctx) => {
     fiatPrice: order.price
   })
 
-  ctx.status = 200;
-  ctx.body = res._id;
+  // ctx.status = 200;
+  // ctx.body = res._id;
 
-  // function sleep (ms) {
-  //   return new Promise(resolve => setTimeout(resolve, ms));
-  // }
+  console.log('new order id', res._id);
 
-  // console.log('new order id', res._id);
-  // const myInterval = setInterval( async () => {
-  //   let stat = await transactionServices.verifyTransactions(res._id)
-  //   console.log(`The transaction status is ${stat ? 'confirmed' : 'not yet confirmed'}`);
-    
-  //   if (stat === true) {
-  //     clearInterval(myInterval);
-  //   }
-  // }, 10000);
-  
-  // await sleep(180000)
-  // clearInterval(myInterval);
-  // const status = await transactionServices.verifyTransactions(res._id);
-  // if (status) {
-  //   ctx.status = 200
-  //   ctx.body = status;
-  //   return ctx;
-  // } else {
-  //   ctx.status = 418
-  //   return ctx;
-  // }
+  try {
+    await (new Promise((resolve, reject) => {
+      const myInterval = setInterval(async () => {
+        let stat = await transactionServices.verifyTransactions(res._id)
+        console.log(`The transaction status is ${stat ? 'confirmed' : 'not yet confirmed'}`);
 
-  
+        if (stat === true) {
+          clearInterval(myInterval);
+          resolve();
+        }
+      }, 10000);
+
+      setTimeout(() => {
+        clearInterval(myInterval);
+        reject()
+      }, 10 * 60 * 1000)
+    }));
+
+    ctx.status = 201;
+    ctx.body = res._id;
+    return ctx;
+  } catch(e) {
+    ctx.status = 400;
+    ctx.body = {
+      errors: ['Timeout']
+    }
+    return ctx;
+  }
 }
 
 module.exports.getAll = async (ctx) => {

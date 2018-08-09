@@ -66,25 +66,19 @@ module.exports.updateTransactions = async () => {
 };
 
 
-module.exports.verifyTransactions = async (ctx) => {
+module.exports.verifyTransactions = async (id) => {
 
   // Update transactions and matches
   await module.exports.updateTransactions()
   // Ask for transaction with ID === ctx
-  const transaction = await Order.findOne({ _id: ctx.request.body.id })
+  const transaction = await Order.findOne({ _id: id })
   console.log('trans', transaction.paid);
   
   if (transaction.paid === true) {
-    console.log('good');
-    
-    ctx.status = 200;
-    ctx.body = transaction.paid;
-    return ctx;
+    return true
     
   } else {
-    console.log('baaad');
-    ctx.status = 418;
-    return ctx
+    return false
   }
 
 
