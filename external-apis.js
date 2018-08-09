@@ -11,21 +11,12 @@ const etherScanAPIKey = '4UBFZT7AHFZ67HFIJKEQC7XC1HAYR8EDPG'
 const etherScanAPI = 'http://api.etherscan.io/api?module=account&action=txlist&address='
 
 
-
-const rateEURtoETH = () => {
-  return fetch(coinmarketAPIeth)
-  .then(res => res.json())
-  .then(res => res = res.data.quotes["EUR"].price)
-  .then(res => res = Math.ceil(Math.pow(10, 18)/res, 1)) // return exchange rate in WEIs, round up for gas cost
-}
-
-
-const checkLastTX = () => {
+module.exports.checkLastTX = () => {
   return fetch(`http://api.etherscan.io/api?module=account&action=txlist&address=${testingAddress}&startblock=0&endblock=99999999&sort=asc&apikey=${etherScanAPIKey}`)
     .then(res => res.json())
   }
   
-  const checkAllTX = () => {
+  module.exports.checkAllTX = () => {
     return fetch(`http://api.etherscan.io/api?module=account&action=txlist&address=0xe182CcFA27E955C94E7D649aD1Cb32BA90295591&startblock=0&endblock=99999999&sort=asc&apikey=4UBFZT7AHFZ67HFIJKEQC7XC1HAYR8EDPG`)
     .then(res => res.json())
     
@@ -36,26 +27,18 @@ const checkLastTX = () => {
 
 //   ROUTER ENDPOINTS ================
 //Looking for the last transaction, this is the method used to verify the payment
-const checkLast = async (ctx, next) => {
+module.exports.checkLast = async (ctx, next) => {
   ctx.body = await checkLastTX()
   next()
 }
 
-const checkExchangeRate = async (ctx, next) => {
-  ctx.body = await rateEURtoETH()
-  next()
-}
+
 
 //Gets all the info from a given account
-const checkAll = async (ctx, next) => {
+module.exports.checkAll = async (ctx, next) => {
   ctx.body = await checkAllTX()
   
   next()
 }
 
 
-exports.rateEURtoETH = rateEURtoETH
-exports.checkLast = checkLast
-exports.checkAll = checkAll
-exports.checkLastTX = checkLastTX
-exports.checkExchangeRate = checkExchangeRate

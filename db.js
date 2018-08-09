@@ -1,6 +1,6 @@
 const db = require('mongoose');
-const Item = require('./models/model-item')
-const Receipt = require('./models/model-receipt')
+const Item = require('./models/item.model')
+const Receipt = require('./models/receipt.model')
 const externalapis = require('./external-apis')
 const config = require('./config.json');
 
@@ -15,11 +15,7 @@ module.exports.addItem = (item) => {
 }
 
 
-module.exports.deleteItem = async (item) => {
-  let data = await Item.findOneAndDelete({name: item})
-    if (data) {console.log("successfully deleted item")}
-    return data
-}
+
 
 module.exports.viewItem = async (item) => {
   let data = await Item.find({name: item})
@@ -29,19 +25,6 @@ module.exports.viewItem = async (item) => {
     el._priceCryptoNumber = (el.priceFiat* current_rate)
     el.priceCryptocurrency = "Ξ " + (el.priceFiat * current_rate).toFixed(7).toString();
     el.exchangeRate = current_rate.toString();
-    el.priceFiat = "€ " + el.priceFiat.toString();
-  });
-  return data
-}
-
-module.exports.viewItems = async () => {
-  let data = await Item.find()
-  let current_rate = await externalapis.rateEURtoETH(); // get current rate before viewing item
-  let current_rate_played = current_rate / Math.pow(10,18) // should make this dynamic);
-  data.forEach(el => {
-    el._priceCryptoNumber = (el.priceFiat * current_rate)
-    el.priceCryptocurrency = "Ξ " + (el.priceFiat * current_rate_played).toFixed(7).toString();
-    el.exchangeRate = current_rate_played.toString();
     el.priceFiat = "€ " + el.priceFiat.toString();
   });
   return data
